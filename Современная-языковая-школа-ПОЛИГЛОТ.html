@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ПОЛИГЛОТ - Языковая школа</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>tailwind.config={theme:{extend:{colors:{primary:'#4F46E5',secondary:'#F59E0B'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <style>
+        :where([class^="ri-"])::before { content: "\f3c2"; }
+        body {
+            font-family: 'Montserrat', sans-serif;
+        }
+        .hero-section {
+            background-image: url('https://readdy.ai/api/search-image?query=modern%20language%20school%20interior%20with%20bright%20and%20airy%20classroom%2C%20students%20of%20different%20ages%20learning%20languages%2C%20bookshelves%20with%20language%20textbooks%2C%20world%20map%20on%20wall%2C%20comfortable%20seating%2C%20natural%20light%20coming%20through%20large%20windows%2C%20peaceful%20learning%20atmosphere&width=1920&height=1080&seq=1&orientation=landscape');
+            background-size: cover;
+            background-position: center;
+        }
+        .hero-overlay {
+            background: linear-gradient(90deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.9) 50%, rgba(255,255,255,0.5) 100%);
+        }
+        input:focus, select:focus {
+            outline: none;
+            border-color: #4F46E5;
+        }
+        .custom-checkbox {
+            position: relative;
+            padding-left: 30px;
+            cursor: pointer;
+        }
+        .custom-checkbox input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+        .checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 20px;
+            width: 20px;
+            border: 2px solid #4F46E5;
+            border-radius: 4px;
+        }
+        .custom-checkbox input:checked ~ .checkmark:after {
+            content: "";
+            position: absolute;
+            display: block;
+            left: 6px;
+            top: 2px;
+            width: 5px;
+            height: 10px;
+            border: solid #4F46E5;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+        .custom-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+        .custom-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 24px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        input:checked + .slider {
+            background-color: #4F46E5;
+        }
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        .tab-active {
+            color: #4F46E5;
+            border-bottom: 2px solid #4F46E5;
+        }
+    </style>
+</head>
+<body class="bg-white">
+    <!-- Навигация -->
+    <nav class="fixed w-full bg-white shadow-sm z-50">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+            <a href="#" class="text-2xl font-['Pacifico'] text-primary">ПОЛИГЛОТ</a>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#about" class="text-gray-700 hover:text-primary transition-colors">О школе</a>
+                <a href="#courses" class="text-gray-700 hover:text-primary transition-colors">Курсы</a>
+                <a href="#teachers" class="text-gray-700 hover:text-primary transition-colors">Преподаватели</a>
+                <a href="#reviews" class="text-gray-700 hover:text-primary transition-colors">Отзывы</a>
+                <a href="#contacts" class="text-gray-700 hover:text-primary transition-colors">Контакты</a>
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="tel:+74951234567" class="hidden md:flex items-center text-gray-700 hover:text-primary">
+                    <div class="w-6 h-6 flex items-center justify-center mr-2">
+                        <i class="ri-phone-line"></i>
+                    </div>
+                    <span>+7 (495) 123-45-67</span>
+                </a>
+                <button class="bg-primary text-white px-6 py-2 !rounded-button whitespace-nowrap">Записаться</button>
+                <button class="md:hidden w-10 h-10 flex items-center justify-center text-gray-700" id="mobileMenuButton">
+                    <i class="ri-menu-line text-2xl"></i>
+                </button>
+            </div>
+        </div>
+        <!-- Мобильное меню -->
+        <div class="md:hidden hidden bg-white w-full absolute top-full left-0 shadow-md" id="mobileMenu">
+            <div class="container mx-auto px-4 py-2 flex flex-col space-y-3">
+                <a href="#about" class="py-2 text-gray-700 hover:text-primary">О школе</a>
+                <a href="#courses" class="py-2 text-gray-700 hover:text-primary">Курсы</a>
+                <a href="#teachers" class="py-2 text-gray-700 hover:text-primary">Преподаватели</a>
+                <a href="#reviews" class="py-2 text-gray-700 hover:text-primary">Отзывы</a>
+                <a href="#contacts" class="py-2 text-gray-700 hover:text-primary">Контакты</a>
+                <a href="tel:+74951234567" class="py-2 flex items-center text-gray-700 hover:text-primary">
+                    <div class="w-6 h-6 flex items-center justify-center mr-2">
+                        <i class="ri-phone-line"></i>
+                    </div>
+                    <span>+7 (495) 123-45-67</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero секция -->
+    <section class="hero-section w-full min-h-screen flex items-center pt-16">
+        <div class="hero-overlay w-full min-h-screen absolute top-0 left-0"></div>
+        <div class="container mx-auto px-4 py-20 relative z-10">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="w-full md:w-1/2 mb-10 md:mb-0">
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
+                        ПОЛИГЛОТ — твой путь к свободному общению
+                    </h1>
+                    <p class="text-lg md:text-xl text-gray-700 mb-8">
+                        Изучайте языки с профессиональными преподавателями и современными методиками. 
+                        Индивидуальный подход к каждому ученику, гибкое расписание и гарантированный результат.
+                    </p>
+                    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                        <button class="bg-primary text-white px-8 py-3 !rounded-button font-medium whitespace-nowrap">
+                            Записаться на пробное занятие
+                        </button>
+                        <button class="border-2 border-primary text-primary px-8 py-3 !rounded-button font-medium whitespace-nowrap">
+                            Узнать больше
+                        </button>
+                    </div>
+                </div>
+                <div class="w-full md:w-1/2 flex justify-center">
+                    <img src="https://static.readdy.ai/image/ed518db8c355bc71ccec223ba9c9db35/f16cf325a1219c6437bd535faaf5b140.jpeg" 
+                         alt="Студенты изучают языки" 
+                         class="rounded-lg shadow-xl max-w-full h-auto object-top">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Блок преимуществ -->
+    <section class="py-20 bg-gray-50" id="about">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Почему выбирают ПОЛИГЛОТ</h2>
+                <p class="text-lg text-gray-700 max-w-3xl mx-auto">
+                    Уже более 10 лет мы помогаем нашим ученикам преодолевать языковые барьеры и достигать своих целей
+                </p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="bg-white p-8 rounded-lg shadow-sm transition-all hover:shadow-md">
+                    <div class="w-16 h-16 flex items-center justify-center bg-primary/10 rounded-full mb-6 mx-auto">
+                        <i class="ri-user-star-line text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3 text-center">Опытные преподаватели</h3>
+                    <p class="text-gray-700 text-center">
+                        Все наши преподаватели имеют высшее лингвистическое образование, международные сертификаты и опыт работы от 5 лет
+                    </p>
+                </div>
+                <div class="bg-white p-8 rounded-lg shadow-sm transition-all hover:shadow-md">
+                    <div class="w-16 h-16 flex items-center justify-center bg-primary/10 rounded-full mb-6 mx-auto">
+                        <i class="ri-book-open-line text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3 text-center">Современные методики</h3>
+                    <p class="text-gray-700 text-center">
+                        Мы используем коммуникативный подход и новейшие учебные материалы, адаптированные под ваши цели и интересы
+                    </p>
+                </div>
+                <div class="bg-white p-8 rounded-lg shadow-sm transition-all hover:shadow-md">
+                    <div class="w-16 h-16 flex items-center justify-center bg-primary/10 rounded-full mb-6 mx-auto">
+                        <i class="ri-time-line text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3 text-center">Гибкое расписание</h3>
+                    <p class="text-gray-700 text-center">
+                        Занятия проводятся в удобное для вас время, включая вечерние часы и выходные дни
+                    </p>
+                </div>
+                <div class="bg-white p-8 rounded-lg shadow-sm transition-all hover:shadow-md">
+                    <div class="w-16 h-16 flex items-center justify-center bg-primary/10 rounded-full mb-6 mx-auto">
+                        <i class="ri-global-line text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3 text-center">Онлайн и офлайн</h3>
+                    <p class="text-gray-700 text-center">
+                        Выбирайте удобный формат обучения: в нашей школе или дистанционно из любой точки мира
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Языковые курсы -->
+    <section class="py-20" id="courses">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Наши языковые курсы</h2>
+                <p class="text-lg text-gray-700 max-w-3xl mx-auto">
+                    Выберите язык, который хотите изучать, и мы подберем для вас оптимальную программу обучения
+                </p>
+            </div>
+            
+            <!-- Табы с языками -->
+            <div class="mb-8 flex justify-center">
+                <div class="inline-flex border-b border-gray-200">
+                    <button class="px-6 py-3 text-lg font-medium tab-active" data-tab="english">Английский</button>
+                    <button class="px-6 py-3 text-lg font-medium text-gray-500" data-tab="german">Немецкий</button>
+                    <button class="px-6 py-3 text-lg font-medium text-gray-500" data-tab="french">Французский</button>
+                    <button class="px-6 py-3 text-lg font-medium text-gray-500" data-tab="spanish">Испанский</button>
+                    <button class="px-6 py-3 text-lg font-medium text-gray-500" data-tab="italian">Итальянский</button>
+                </div>
+            </div>
+            
+            <!-- Контент табов -->
+            <div class="tab-content" id="english-content">
+                <div class="flex flex-col md:flex-row">
+                    <div class="w-full md:w-1/2 mb-8 md:mb-0 md:pr-8">
+                        <img src="https://static.readdy.ai/image/ed518db8c355bc71ccec223ba9c9db35/d9fbe6a82e820e50017023826cb2e5c8.png" 
+                             alt="Английский язык" 
+                             class="rounded-lg shadow-md w-full h-auto object-top">
+                    </div>
+                    <div class="w-full md:w-1/2">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-4">Английский язык</h3>
+                        <p class="text-gray-700 mb-6">
+                            Английский язык — международный язык бизнеса, науки и путешествий. Наши курсы помогут вам овладеть всеми аспектами языка: от базовой грамматики до свободного общения на любые темы.
+                        </p>
+                        <div class="mb-6">
+                            <h4 class="text-xl font-semibold text-gray-900 mb-3">Уровни обучения:</h4>
+                            <ul class="space-y-2">
+                                <li class="flex items-start">
+                                    <div class="w-5 h-5 flex items-center justify-center mr-2 mt-1">
+                                        <i class="ri-check-line text-primary"></i>
+                                    </div>
+                                    <span>Beginner (A1) — для начинающих с нуля</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="w-5 h-5 flex items-center justify-center mr-2 mt-1">
+                                        <i class="ri-check-line text-primary"></i>
+                                    </div>
+                                    <span>Elementary (A2) — базовый уровень</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="w-5 h-5 flex items-center justify-center mr-2 mt-1">
+                                        <i class="ri-check-line text-primary"></i>
+                                    </div>
+                                    <span>Intermediate (B1) — средний уровень</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="w-5 h-5 flex items-center justify-center mr-2 mt-1">
+                                        <i class="ri-check-line text-primary"></i>
+                                    </div>
+                                    <span>Upper-Intermediate (B2) — выше среднего</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="w-5 h-5 flex items-center justify-center mr-2 mt-1">
+                                        <i class="ri-check-line text-primary"></i>
+                                    </div>
+                                    <span>Advanced (C1) — продвинутый уровень</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                            <button class="bg-primary text-white px-6 py-3 !rounded-button font-medium whitespace-nowrap">
+                                Узнать стоимость
+                            </button>
+                            <button class="border-2 border-primary text-primary px-6 py-3 !rounded-button font-medium whitespace-nowrap">
+                                Записаться на курс
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-content hidden" id="german-content">
+                <!-- Аналогичное содержимое для немецкого языка -->
+            </div>
+            
+            <div class="tab-content hidden" id="french-content">
+                <!-- Аналогичное содержимое для французского языка -->
+            </div>
+            
+            <div class="tab-content hidden" id="spanish-content">
+                <!-- Аналогичное содержимое для испанского языка -->
+            </div>
+            
+            <div class="tab-content hidden" id="italian-content">
+                <!-- Аналогичное содержимое для итальянского языка -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Форматы обучения -->
+    <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Форматы обучения</h2>
+                <p class="text-lg text-gray-700 max-w-3xl mx-auto">
+                    Мы предлагаем различные форматы обучения, адаптированные под ваши потребности и возможности
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Для детей -->
+                <div class="bg-white rounded-lg shadow-sm overflow-hidden transition-all hover:shadow-md">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://static.readdy.ai/image/ed518db8c355bc71ccec223ba9c9db35/aa67140fc9ce8431f050af335c2536cc.jpeg" 
+                             alt="Обучение для детей" 
+                             class="w-full h-full object-cover object-top">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-3">Для детей</h3>
+                        <p class="text-gray-700 mb-4">
+                            Увлекательные занятия для детей от 4 до 16 лет. Игровой формат, интерактивные упражнения и индивидуальный подход к каждому ребенку.
+                        </p>
+                        <ul class="space-y-2 mb-6">
+                            <li class="flex items-start">
+                                <div class="w-5 h-5 flex items-center justify-center mr-2 mt-1">
+                                    <i class="ri-check-line text-primary"></i>
+                                </div>
+                                <span>Группы по возрасту и уровню</span>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="w-5 h-5 flex items-center justify-center mr-2 mt-1">
+                                    <i class="ri-check-line text-primary"></i>
+                                </div>
+                                <span>Игровые методики обучения</span>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="w-5 h-5 flex items-center justify-center mr-2 mt-1">
+                                    <i class="ri-check-line text-primary"></i>
+                                </div>
+                                <span>Подготовка к школьным экзаменам</span>
+                            </li>
+                        </ul>
+                        <button class="w-full bg-primary text-white px-4 py-2 !rounded-button font-medium whitespace-nowrap">
+                            Подробнее
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Для взрослых -->
+                <div class="bg-white rounded-lg shadow-sm overflow-hidden transition-all hover:shadow-md">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://static.readdy.ai/image/ed518db8c355bc71ccec223ba9c9db35/ce2b8f3ab88ec7f5887be798948e84fc.png" 
+                             alt="Обучение для взрослых" 
+                             class="w-full h-full object-cover object-top">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-3">Для взрослых</h3>
+                        <p class="text-gray-700 mb-4">
+                            Эффективные программы для взрослых с любым уровнем подготовки. Фокус на практическом применении языка в реальных ситуациях.
+                        </p>
+                        <ul class="space-y-2 mb-6">
+                            <li class="flex items-start">
+                                <div class="w-5 h-5 flex items-center justify-center mr-2 mt-1">
+                                    <i class="ri-check-line text-primary"></i>
+                                </div>
+                                <span>Индивидуальные и групповые занятия</span>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="w-5 h-5 flex items-center justify-center mr-2 mt-1">
+                                    <i class="ri-check-line text-primary"></i>
+                                </div>
+                                <span>Подготовка к международным экзаменам</span>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="w-5 h-5 flex items-center justify-center mr-2 mt-1">
+                                    <i class="ri-check-line text-primary"></i>
+                                </div>
+                                <span>Специализированные курсы (бизнес, туризм)</span>
+                            </li>
+                        </ul>
+                        <button class="w-full bg-primary text-white px-4 py-2 !rounded-button font-medium whitespace-nowrap">
+                            Подробнее
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Корпоративное обучение -->
+                <div class="bg-white rounded-lg shadow-sm overflow-hidden transition-all hover:shadow-md">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://static.readdy.ai/image/ed518db8c355bc71ccec223ba9c9db35/bcd9f8d5192e39acdd0ef974ed8869e2.jpeg" 
+                             alt="Корпоративное обучение" 
+                             class="w-full h-full object-cover object-top">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-3">Корпоративное обучение</h3>
+                        <p class="text-gray-700 mb-4">
+                            Специализированные программы для компаний с учетом отраслевой специфики и потребностей бизнеса.
+                        </p>
+                        <ul class="space-y-2 mb-6">
+                            <li class="flex items-start">
+                                <div class="w-5 h-5 flex items-center justify-center mr-2 mt-1">
+                                    <i class="ri-check-line text-primary"></i>
+                                </div>
+                                <span>Обучение в офисе компании</span>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="w-5 h-5 flex items-center justify-center mr-2 mt-1">
+                                    <i class="ri-check-line text-primary"></i>
+                                </div>
+                                <span>Отраслевая специализация</span>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="w-5 h-5 flex items-center justify-center mr-2 mt-1">
+                                    <i class="ri-check-line text-primary"></i>
+                                </div>
+                                <span>Гибкое расписание под рабочий график</span>
+                            </li>
+                        </ul>
+                        <button class="w-full bg-primary text-white px-4 py-2 !rounded-button font-medium whitespace-nowrap">
+                            Подробнее
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Расписание -->
+    <section class="py-20">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Расписание занятий</h2>
+                <p class="text-lg text-gray-700 max-w-3xl mx-auto">
+                    Выберите удобное время для занятий в нашей школе
+                </p>
+            </div>
+            
+            <!-- Фильтры расписания -->
+            <div class="mb-8 flex flex-col md:flex-row justify-center gap-4">
+                <div class="w-full md:w-auto">
+                    <select class="w-full md:w-48 px-4 py-2 border border-gray-300 rounded-lg text-gray-700 bg-white">
+                        <option value="all">Все языки</option>
+                        <option value="english">Английский</option>
+                        <option value="german">Немецкий</option>
+                        <option value="french">Французский</option>
+                        <option value="spanish">Испанский</option>
+                        <option value="italian">Итальянский</option>
+                    </select>
+                </div>
+                <div class="w-full md:w-auto">
+                    <select class="w-full md:w-48 px-4 py-2 border border-gray-300 rounded-lg text-gray-700 bg-white">
+                        <option value="all">Все уровни</option>
+                        <option value="a1">Beginner (A1)</option>
+                        <option value="a2">Elementary (A2)</option>
+                        <option value="b1">Intermediate (B1)</option>
+                        <option value="b2">Upper-Intermediate (B2)</option>
+                        <option value="c1">Advanced (C1)</option>
+                    </select>
+                </div>
+                <div class="w-full md:w-auto">
+                    <select class="w-full md:w-48 px-4 py-2 border border-gray-300 rounded-lg text-gray-700 bg-white">
+                        <option value="all">Все форматы</option>
+                        <option value="group">Групповые занятия</option>
+                        <option value="individual">Индивидуальные занятия</option>
+                        <option value="online">Онлайн</option>
+                        <option value="offline">Офлайн</option>
+                    </select>
+                </div>
+            </div>
+            
+            <!-- Таблица расписания -->
+            <div class="overflow-x-auto">
+                <table class="min-w-full bg-white rounded-lg overflow-hidden shadow-sm">
+                    <thead class="bg-gray-100">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Язык</th>
+                            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Уровень</th>
+                            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Формат</th>
+                            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Дни</th>
+                            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Время</th>
+                            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Преподаватель</th>
+                            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Действие</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4 text-sm text-gray-700">Английский</td>
+                            <td class="px-6 py-4 text-sm text-gray-700">A1-A2</td>
+                            <td class="px-6 py-4 text-sm text-gray-700">Группа</td>
+                            <td class="px-6 py-4 text-sm text-gray-700">Пн, Ср</td>
+                            <td class="px-6 py-4 text-sm text-gray-700">18:00 - 19:30</td>
+                            <td class="px-6 py-4 text-sm text-gray-700">Анна Петрова</td>
+                            <td class="px-6 py-4 text-sm">
+                                <button class="bg-primary text-white px-4 py-1 !rounded-button whitespace-nowrap">Записаться</button>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4 text-sm text-gray-700">Английский</td>
+                            <td class="px-6 py-4 text-sm text-gray-700">B1-B2</td>
+                            <td class="px-6 py-4 text-sm text-gray-700">Группа</td>
+                            <td class="px-6 py-4 text-sm text-gray-700">Вт, Чт</td>
+                            <td class="px-6 py-4 text-sm text-gray-700">19:00 - 20:30</td>
+                            <td class="px-6 py-4 text-sm text-gray-700">Михаил Иванов</td>
+                            <td class="px-6 py-4 text-sm">
+                                <button class="bg-primary text-white px-4 py-1 !rounded-button whitespace-nowrap">Записаться</button>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4 text-sm text-gray-700">Немецкий</td>
+                            <td class="px-6 py-4 text-sm text-gray-700">A1</td>
+                            <td class="px-6 py-4 text-sm text-gray-700">Группа</td>
+                            <td class="px-6 py-4 text-sm text-gray-700">Пн, Пт</td>
+                            <td class="px-6 py-4 text-sm text-gray-700">18:30 - 20:00</td>
+                            <td class="px-6 py-4 text-sm text-gray-700">Елена Смирнова</td>
+                            <td class="px-6 py-4 text-sm">
+                                <button class="bg-primary text-white px-4 py-1 !rounded-button whitespace-nowrap">Записаться</button>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4 text-sm text-gray-700">Французский</td>
+                            <td class="px-6 py-4 text-sm text-gray-700">A1-A2</td>
+                            <td class="px-6 py-4 text-sm text-gray-700">Онлайн</td>
+                            <td class="px-6 py-4 text-sm text-gray-700">Ср, Сб</td>
+                            <td class="px-6 py-4 text-sm text-gray-700">17:00 - 18:30</td>
+                            <td class="px-6 py-4 text-sm text-gray-700">Ольга Козлова</td>
+                            <td class="px-6 py-4 text-sm">
+                                <button class="bg-primary text-white px-4 py-1 !rounded-button whitespace-nowrap">Записаться</button>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4 text-sm text-gray-700">Испанский</td>
+                            <td class="px-6 py-4 text-sm text-gray-700">A1</td>
+                            <td class="px-6 py-4 text-sm text-gray-700">Группа</td>
+                            <td class="px-6 py-4 text-sm text-gray-700">Вт, Чт</td>
+                            <td class="px-6 py-4 text-sm text-gray-700">18:00 - 19:30</td>
+                            <td class="px-6 py-4 text-sm text-gray-700">Дмитрий Соколов</td>
+                            <td class="px-6 py-4 text-sm">
+                                <button class="bg-primary text-white px-4 py-1 !rounded-button whitespace-nowrap">Записаться</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Преподаватели -->
+    <section class="py-20 bg-gray-50" id="teachers">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Наши преподаватели</h2>
+                <p class="text-lg text-gray-700 max-w-3xl mx-auto">
+                    Профессиональные педагоги с международными сертификатами и богатым опытом преподавания
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Преподаватель 1 -->
+                <div class="bg-white rounded-lg shadow-sm overflow-hidden transition-all hover:shadow-md">
+                    <div class="h-64 overflow-hidden">
+                        <img src="https://static.readdy.ai/image/ed518db8c355bc71ccec223ba9c9db35/409def453607dc32b22120951236a7f2.jpeg" 
+                             alt="Анна Петрова" 
+                             class="w-full h-full object-cover object-top">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-1">Анна Петрова</h3>
+                        <p class="text-primary mb-3">Английский язык</p>
+                        <p class="text-gray-700 mb-4">
+                            Опыт преподавания: 8 лет. Сертификаты: CELTA, TKT, IELTS Examiner.
+                        </p>
+                        <button class="w-full border border-primary text-primary px-4 py-2 !rounded-button font-medium whitespace-nowrap hover:bg-primary hover:text-white transition-colors">
+                            Подробнее
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Преподаватель 2 -->
+                <div class="bg-white rounded-lg shadow-sm overflow-hidden transition-all hover:shadow-md">
+                    <div class="h-64 overflow-hidden">
+                        <img src="https://static.readdy.ai/image/ed518db8c355bc71ccec223ba9c9db35/9d653503aae8542947cc11ffb2803ede.jpeg" 
+                             alt="Михаил Иванов" 
+                             class="w-full h-full object-cover object-top">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-1">Михаил Иванов</h3>
+                        <p class="text-primary mb-3">Английский язык</p>
+                        <p class="text-gray-700 mb-4">
+                            Опыт преподавания: 10 лет. Сертификаты: DELTA, CAE, BEC Higher.
+                        </p>
+                        <button class="w-full border border-primary text-primary px-4 py-2 !rounded-button font-medium whitespace-nowrap hover:bg-primary hover:text-white transition-colors">
+                            Подробнее
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Преподаватель 3 -->
+                <div class="bg-white rounded-lg shadow-sm overflow-hidden transition-all hover:shadow-md">
+                    <div class="h-64 overflow-hidden">
+                        <img src="https://static.readdy.ai/image/ed518db8c355bc71ccec223ba9c9db35/7b4580fdd25a4b739f015d198446f600.jpeg" 
+                             alt="Елена Смирнова" 
+                             class="w-full h-full object-cover object-top">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-1">Елена Смирнова</h3>
+                        <p class="text-primary mb-3">Немецкий язык</p>
+                        <p class="text-gray-700 mb-4">
+                            Опыт преподавания: 7 лет. Сертификаты: Goethe-Zertifikat C2, TestDaF.
+                        </p>
+                        <button class="w-full border border-primary text-primary px-4 py-2 !rounded-button font-medium whitespace-nowrap hover:bg-primary hover:text-white transition-colors">
+                            Подробнее
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Преподаватель 4 -->
+                <div class="bg-white rounded-lg shadow-sm overflow-hidden transition-all hover:shadow-md">
+                    <div class="h-64 overflow-hidden">
+                        <img src="https://static.readdy.ai/image/ed518db8c355bc71ccec223ba9c9db35/536c75c8bd8472bf761007722a80278c.jpeg" 
+                             alt="Ольга Козлова" 
+                             class="w-full h-full object-cover object-top">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-1">Ольга Козлова</h3>
+                        <p class="text-primary mb-3">Французский язык</p>
+                        <p class="text-gray-700 mb-4">
+                            Опыт преподавания: 6 лет. Сертификаты: DALF C2, DAEFLE.
+                        </p>
+                        <button class="w-full border border-primary text-primary px-4 py-2 !rounded-button font-medium whitespace-nowrap hover:bg-primary hover:text-white transition-colors">
+                            Подробнее
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-10">
+                <button class="bg-white border border-primary text-primary px-8 py-3 !rounded-button font-medium whitespace-nowrap hover:bg-primary hover:text-white transition-colors">
+                    Познакомиться со всеми преподавателями
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Отзывы -->
+    <section class="py-20" id="reviews">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Отзывы наших учеников</h2>
+                <p class="text-lg text-gray-700 max-w-3xl mx-auto">
+                    Узнайте, что говорят о нас те, кто уже прошел обучение в нашей школе
+                </p>
+            </div>
+            
+            <div class="relative">
+                <!-- Стрелки навигации -->
+                <button class="absolute top-1/2 -left-4 md:-left-10 transform -translate-y-1/2 w-10 h-10 flex items-center justify-center bg-white rounded-full shadow-md z-10 text-gray-700 hover:text-primary" id="prevReview">
+                    <i class="ri-arrow-left-s-line text-xl"></i>
+                </button>
+                <button class="absolute top-1/2 -right-4 md:-right-10 transform -translate-y-1/2 w-10 h-10 flex items-center justify-center bg-white rounded-full shadow-md z-10 text-gray-700 hover:text-primary" id="nextReview">
+                    <i class="ri-arrow-right-s-line text-xl"></i>
+                </button>
+                
+                <!-- Карусель отзывов -->
+                <div class="overflow-hidden" id="reviewsContainer">
+                    <div class="flex transition-transform duration-300" id="reviewsSlider">
+                        <!-- Отзыв 1 -->
+                        <div class="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-4">
+                            <div class="bg-white rounded-lg shadow-sm p-6 h-full">
+                                <div class="flex items-center mb-4">
+                                    <div class="w-12 h-12 rounded-full overflow-hidden mr-4">
+                                        <img src="https://readdy.ai/api/search-image?query=professional%20portrait%20of%20a%20smiling%20woman%2C%2028%20years%20old%2C%20business%20casual%2C%20neutral%20background%2C%20headshot&width=100&height=100&seq=11&orientation=squarish" 
+                                             alt="Екатерина Новикова" 
+                                             class="w-full h-full object-cover object-top">
+                                    </div>
+                                    <div>
+                                        <h4 class="text-lg font-semibold text-gray-900">Екатерина Новикова</h4>
+                                        <div class="flex text-yellow-400">
+                                            <i class="ri-star-fill"></i>
+                                            <i class="ri-star-fill"></i>
+                                            <i class="ri-star-fill"></i>
+                                            <i class="ri-star-fill"></i>
+                                            <i class="ri-star-fill"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="text-gray-700 italic">
+                                    "Занимаюсь английским в ПОЛИГЛОТ уже год. За это время мой уровень вырос с A2 до B2. Преподаватель Анна Петрова находит индивидуальный подход и делает каждое занятие интересным. Рекомендую всем, кто хочет быстро и эффективно выучить язык!"
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <!-- Отзыв 2 -->
+                        <div class="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-4">
+                            <div class="bg-white rounded-lg shadow-sm p-6 h-full">
+                                <div class="flex items-center mb-4">
+                                    <div class="w-12 h-12 rounded-full overflow-hidden mr-4">
+                                        <img src="https://readdy.ai/api/search-image?query=professional%20portrait%20of%20a%20smiling%20man%2C%2035%20years%20old%2C%20business%20casual%2C%20neutral%20background%2C%20headshot&width=100&height=100&seq=12&orientation=squarish" 
+                                             alt="Алексей Морозов" 
+                                             class="w-full h-full object-cover object-top">
+                                    </div>
+                                    <div>
+                                        <h4 class="text-lg font-semibold text-gray-900">Алексей Морозов</h4>
+                                        <div class="flex text-yellow-400">
+                                            <i class="ri-star-fill"></i>
+                                            <i class="ri-star-fill"></i>
+                                            <i class="ri-star-fill"></i>
+                                            <i class="ri-star-fill"></i>
+                                            <i class="ri-star-half-fill"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="text-gray-700 italic">
+                                    "Проходил корпоративное обучение немецкому языку вместе с коллегами. Очень удобно, что преподаватель приезжал к нам в офис. Программа была адаптирована под специфику нашей работы. Теперь уверенно общаюсь с немецкими партнерами."
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <!-- Отзыв 3 -->
+                        <div class="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-4">
+                            <div class="bg-white rounded-lg shadow-sm p-6 h-full">
+                                <div class="flex items-center mb-4">
+                                    <div class="w-12 h-12 rounded-full overflow-hidden mr-4">
+                                        <img src="https://readdy.ai/api/search-image?query=professional%20portrait%20of%20a%20smiling%20woman%2C%2040%20years%20old%2C%20business%20casual%2C%20neutral%20background%2C%20headshot&width=100&height=100&seq=13&orientation=squarish" 
+                                             alt="Мария Соловьева" 
+                                             class="w-full h-full object-cover object-top">
+                                    </div>
+                                    <div>
+                                        <h4 class="text-lg font-semibold text-gray-900">Мария Соловьева</h4>
+                                        <div class="flex text-yellow-400">
+                                            <i class="ri-star-fill"></i>
+                                            <i class="ri-star-fill"></i>
+                                            <i class="ri-star-fill"></i>
+                                            <i class="ri-star-fill"></i>
+                                            <i class="ri-star-fill"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="text-gray-700 italic">
+                                    "Записала сына (9 лет) на детский курс английского. Ребенок в восторге! Занятия проходят в игровой форме, много интерактивных заданий. За полгода сын стал свободно говорить простые фразы и понимать английскую речь. Спасибо ПОЛИГЛОТ!"
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <!-- Отзыв 4 -->
+                        <div class="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-4">
+                            <div class="bg-white rounded-lg shadow-sm p-6 h-full">
+                                <div class="flex items-center mb-4">
+                                    <div class="w-12 h-12 rounded-full overflow-hidden mr-4">
+                                        <img src="https://readdy.ai/api/search-image?query=professional%20portrait%20of%20a%20smiling%20man%2C%2030%20years%20old%2C%20business%20casual%2C%20neutral%20background%2C%20headshot&width=100&height=100&seq=14&orientation=squarish" 
+                                             alt="Дмитрий Волков" 
+                                             class="w-full h-full object-cover object-top">
+                                    </div>
+                                    <div>
+                                        <h4 class="text-lg font-semibold text-gray-900">Дмитрий Волков</h4>
+                                        <div class="flex text-yellow-400">
+                                            <i class="ri-star-fill"></i>
+                                            <i class="ri-star-fill"></i>
+                                            <i class="ri-star-fill"></i>
+                                            <i class="ri-star-fill"></i>
+                                            <i class="ri-star-line"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="text-gray-700 italic">
+                                    "Выбрал онлайн-формат изучения испанского из-за плотного графика. Очень удобно заниматься из дома или офиса. Преподаватель Дмитрий отлично объясняет грамматику и всегда на связи, если возникают вопросы. Рекомендую!"
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Индикаторы -->
+                <div class="flex justify-center mt-8" id="reviewIndicators">
+                    <button class="w-3 h-3 rounded-full bg-primary mx-1" data-index="0"></button>
+                    <button class="w-3 h-3 rounded-full bg-gray-300 mx-1" data-index="1"></button>
+                    <button class="w-3 h-3 rounded-full bg-gray-300 mx-1" data-index="2"></button>
+                    <button class="w-3 h-3 rounded-full bg-gray-300 mx-1" data-index="3"></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Форма записи -->
+    <section class="py-20 bg-primary/5">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-md overflow-hidden">
+                <div class="flex flex-col md:flex-row">
+                    <div class="w-full md:w-1/2 p-8 md:p-12">
+                        <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-6">Запишитесь на пробное занятие</h2>
+                        <p class="text-gray-700 mb-8">
+                            Оставьте свои контактные данные, и мы свяжемся с вами для записи на бесплатное пробное занятие
+                        </p>
+                        <form>
+                            <div class="mb-4">
+                                <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Ваше имя</label>
+                                <input type="text" id="name" class="w-full px-4 py-2 border border-gray-300 rounded-lg text-gray-700" placeholder="Иван Иванов">
+                            </div>
+                            <div class="mb-4">
+                                <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Телефон</label>
+                                <input type="tel" id="phone" class="w-full px-4 py-2 border border-gray-300 rounded-lg text-gray-700" placeholder="+7 (___) ___-__-__">
+                            </div>
+                            <div class="mb-4">
+                                <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                                <input type="email" id="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg text-gray-700" placeholder="example@mail.ru">
+                            </div>
+                            <div class="mb-6">
+                                <label for="language" class="block text-sm font-medium text-gray-700 mb-1">Какой язык хотите изучать?</label>
+                                <select id="language" class="w-full px-4 py-2 border border-gray-300 rounded-lg text-gray-700 pr-8">
+                                    <option value="">Выберите язык</option>
+                                    <option value="english">Английский</option>
+                                    <option value="german">Немецкий</option>
+                                    <option value="french">Французский</option>
+                                    <option value="spanish">Испанский</option>
+                                    <option value="italian">Итальянский</option>
+                                </select>
+                            </div>
+                            <div class="mb-6">
+                                <label class="custom-checkbox">
+                                    <input type="checkbox" checked>
+                                    <span class="checkmark"></span>
+                                    <span class="text-sm text-gray-700">Я согласен на обработку персональных данных</span>
+                                </label>
+                            </div>
+                            <button type="submit" class="w-full bg-primary text-white px-6 py-3 !rounded-button font-medium whitespace-nowrap">
+                                Записаться на пробное занятие
+                            </button>
+                        </form>
+                    </div>
+                    <div class="w-full md:w-1/2 bg-primary/10 p-8 md:p-12 flex items-center">
+                        <div>
+                            <h3 class="text-xl font-semibold text-gray-900 mb-4">Почему стоит записаться прямо сейчас?</h3>
+                            <ul class="space-y-4">
+                                <li class="flex items-start">
+                                    <div class="w-5 h-5 flex items-center justify-center mr-2 mt-1 text-primary">
+                                        <i class="ri-check-line"></i>
+                                    </div>
+                                    <span class="text-gray-700">Бесплатное пробное занятие для определения уровня</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="w-5 h-5 flex items-center justify-center mr-2 mt-1 text-primary">
+                                        <i class="ri-check-line"></i>
+                                    </div>
+                                    <span class="text-gray-700">Индивидуальный план обучения под ваши цели</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="w-5 h-5 flex items-center justify-center mr-2 mt-1 text-primary">
+                                        <i class="ri-check-line"></i>
+                                    </div>
+                                    <span class="text-gray-700">Скидка 10% на первый месяц обучения</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="w-5 h-5 flex items-center justify-center mr-2 mt-1 text-primary">
+                                        <i class="ri-check-line"></i>
+                                    </div>
+                                    <span class="text-gray-700">Гибкий график занятий</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="w-5 h-5 flex items-center justify-center mr-2 mt-1 text-primary">
+                                        <i class="ri-check-line"></i>
+                                    </div>
+                                    <span class="text-gray-700">Доступ к дополнительным учебным материалам</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Контакты и карта -->
+    <section class="py-20" id="contacts">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Контакты</h2>
+                <p class="text-lg text-gray-700 max-w-3xl mx-auto">
+                    Приходите к нам в гости или свяжитесь любым удобным способом
+                </p>
+            </div>
+            
+            <div class="flex flex-col lg:flex-row">
+                <div class="w-full lg:w-1/3 mb-8 lg:mb-0 lg:pr-8">
+                    <div class="bg-white rounded-lg shadow-sm p-8">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-6">Наши контакты</h3>
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div class="w-10 h-10 flex items-center justify-center bg-primary/10 rounded-full mr-4 shrink-0">
+                                    <i class="ri-map-pin-line text-primary"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-base font-medium text-gray-900 mb-1">Адрес</h4>
+                                    <p class="text-gray-700">г. Москва, ул. Ленинская, д. 15, офис 301</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="w-10 h-10 flex items-center justify-center bg-primary/10 rounded-full mr-4 shrink-0">
+                                    <i class="ri-phone-line text-primary"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-base font-medium text-gray-900 mb-1">Телефон</h4>
+                                    <p class="text-gray-700">+7 (495) 123-45-67</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="w-10 h-10 flex items-center justify-center bg-primary/10 rounded-full mr-4 shrink-0">
+                                    <i class="ri-mail-line text-primary"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-base font-medium text-gray-900 mb-1">Email</h4>
+                                    <p class="text-gray-700">info@polyglot-school.ru</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="w-10 h-10 flex items-center justify-center bg-primary/10 rounded-full mr-4 shrink-0">
+                                    <i class="ri-time-line text-primary"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-base font-medium text-gray-900 mb-1">Режим работы</h4>
+                                    <p class="text-gray-700">Пн-Пт: 9:00 - 21:00<br>Сб: 10:00 - 18:00<br>Вс: выходной</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <h3 class="text-xl font-semibold text-gray-900 mt-8 mb-4">Мы в соцсетях</h3>
+                        <div class="flex space-x-4">
+                            <a href="#" class="w-10 h-10 flex items-center justify-center bg-primary/10 rounded-full text-primary hover:bg-primary hover:text-white transition-colors">
+                                <i class="ri-vk-fill"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 flex items-center justify-center bg-primary/10 rounded-full text-primary hover:bg-primary hover:text-white transition-colors">
+                                <i class="ri-telegram-fill"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 flex items-center justify-center bg-primary/10 rounded-full text-primary hover:bg-primary hover:text-white transition-colors">
+                                <i class="ri-instagram-fill"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 flex items-center justify-center bg-primary/10 rounded-full text-primary hover:bg-primary hover:text-white transition-colors">
+                                <i class="ri-facebook-fill"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="w-full lg:w-2/3">
+                    <div class="bg-white rounded-lg shadow-sm overflow-hidden h-full">
+                        <div class="h-full min-h-[400px] relative">
+                            <img src="https://public.readdy.ai/gen_page/map_placeholder_1280x720.png" alt="Карта" class="absolute inset-0 w-full h-full object-cover">
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <div class="bg-white p-4 rounded-lg shadow-md">
+                                    <p class="text-gray-700 font-medium">Языковая школа "ПОЛИГЛОТ"</p>
+                                    <p class="text-gray-600">г. Москва, ул. Ленинская, д. 15</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Футер -->
+    <footer class="bg-gray-900 text-white pt-16 pb-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                <div>
+                    <a href="#" class="text-2xl font-['Pacifico'] text-white mb-4 inline-block">ПОЛИГЛОТ</a>
+                    <p class="text-gray-400 mb-6">
+                        Языковая школа с современным подходом к обучению иностранным языкам для детей и взрослых
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 flex items-center justify-center bg-gray-800 rounded-full text-white hover:bg-primary transition-colors">
+                            <i class="ri-vk-fill"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 flex items-center justify-center bg-gray-800 rounded-full text-white hover:bg-primary transition-colors">
+                            <i class="ri-telegram-fill"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 flex items-center justify-center bg-gray-800 rounded-full text-white hover:bg-primary transition-colors">
+                            <i class="ri-instagram-fill"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 flex items-center justify-center bg-gray-800 rounded-full text-white hover:bg-primary transition-colors">
+                            <i class="ri-facebook-fill"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Навигация</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Главная</a></li>
+                        <li><a href="#about" class="text-gray-400 hover:text-white transition-colors">О школе</a></li>
+                        <li><a href="#courses" class="text-gray-400 hover:text-white transition-colors">Курсы</a></li>
+                        <li><a href="#teachers" class="text-gray-400 hover:text-white transition-colors">Преподаватели</a></li>
+                        <li><a href="#reviews" class="text-gray-400 hover:text-white transition-colors">Отзывы</a></li>
+                        <li><a href="#contacts" class="text-gray-400 hover:text-white transition-colors">Контакты</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Курсы</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Английский язык</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Немецкий язык</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Французский язык</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Испанский язык</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Итальянский язык</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Китайский язык</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Контакты</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <div class="w-5 h-5 flex items-center justify-center mr-2 mt-1 text-primary">
+                                <i class="ri-map-pin-line"></i>
+                            </div>
+                            <span class="text-gray-400">г. Москва, ул. Ленинская, д. 15, офис 301</span>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="w-5 h-5 flex items-center justify-center mr-2 mt-1 text-primary">
+                                <i class="ri-phone-line"></i>
+                            </div>
+                            <span class="text-gray-400">+7 (495) 123-45-67</span>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="w-5 h-5 flex items-center justify-center mr-2 mt-1 text-primary">
+                                <i class="ri-mail-line"></i>
+                            </div>
+                            <span class="text-gray-400">info@polyglot-school.ru</span>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="w-5 h-5 flex items-center justify-center mr-2 mt-1 text-primary">
+                                <i class="ri-time-line"></i>
+                            </div>
+                            <span class="text-gray-400">Пн-Пт: 9:00 - 21:00<br>Сб: 10:00 - 18:00</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="pt-8 border-t border-gray-800 text-center text-gray-500 text-sm">
+                <p>© 2025 Языковая школа "ПОЛИГЛОТ". Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Кнопка "Наверх" -->
+    <button class="fixed bottom-6 right-6 w-12 h-12 bg-primary rounded-full shadow-lg flex items-center justify-center text-white opacity-0 transition-opacity duration-300" id="backToTopBtn">
+        <i class="ri-arrow-up-line text-xl"></i>
+    </button>
+
+    <!-- Скрипты -->
+    <script id="mobileMenuScript">
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuButton = document.getElementById('mobileMenuButton');
+            const mobileMenu = document.getElementById('mobileMenu');
+            
+            mobileMenuButton.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+                if (mobileMenu.classList.contains('hidden')) {
+                    mobileMenuButton.innerHTML = '<i class="ri-menu-line text-2xl"></i>';
+                } else {
+                    mobileMenuButton.innerHTML = '<i class="ri-close-line text-2xl"></i>';
+                }
+            });
+            
+            // Закрытие меню при клике на пункт меню
+            const mobileMenuItems = mobileMenu.querySelectorAll('a');
+            mobileMenuItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    mobileMenu.classList.add('hidden');
+                    mobileMenuButton.innerHTML = '<i class="ri-menu-line text-2xl"></i>';
+                });
+            });
+        });
+    </script>
+
+    <script id="tabsScript">
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabButtons = document.querySelectorAll('[data-tab]');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const tabName = this.getAttribute('data-tab');
+                    
+                    // Активация кнопки
+                    tabButtons.forEach(btn => {
+                        btn.classList.remove('tab-active');
+                        btn.classList.add('text-gray-500');
+                    });
+                    this.classList.add('tab-active');
+                    this.classList.remove('text-gray-500');
+                    
+                    // Показ контента
+                    tabContents.forEach(content => {
+                        content.classList.add('hidden');
+                    });
+                    document.getElementById(`${tabName}-content`).classList.remove('hidden');
+                });
+            });
+        });
+    </script>
+
+    <script id="reviewsCarouselScript">
+        document.addEventListener('DOMContentLoaded', function() {
+            const slider = document.getElementById('reviewsSlider');
+            const prevBtn = document.getElementById('prevReview');
+            const nextBtn = document.getElementById('nextReview');
+            const indicators = document.querySelectorAll('#reviewIndicators button');
+            
+            let currentIndex = 0;
+            let slideWidth = 0;
+            let slidesPerView = 1;
+            
+            function updateSlidesPerView() {
+                if (window.innerWidth >= 1024) {
+                    slidesPerView = 3;
+                } else if (window.innerWidth >= 768) {
+                    slidesPerView = 2;
+                } else {
+                    slidesPerView = 1;
+                }
+                
+                const slides = slider.querySelectorAll('div[class^="w-full"]');
+                slideWidth = slides[0].offsetWidth;
+                
+                updateSliderPosition();
+            }
+            
+            function updateSliderPosition() {
+                slider.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+                
+                // Обновление индикаторов
+                indicators.forEach((indicator, index) => {
+                    if (index === currentIndex) {
+                        indicator.classList.remove('bg-gray-300');
+                        indicator.classList.add('bg-primary');
+                    } else {
+                        indicator.classList.remove('bg-primary');
+                        indicator.classList.add('bg-gray-300');
+                    }
+                });
+            }
+            
+            function goToSlide(index) {
+                const totalSlides = slider.querySelectorAll('div[class^="w-full"]').length;
+                const maxIndex = totalSlides - slidesPerView;
+                
+                if (index < 0) {
+                    currentIndex = 0;
+                } else if (index > maxIndex) {
+                    currentIndex = maxIndex;
+                } else {
+                    currentIndex = index;
+                }
+                
+                updateSliderPosition();
+            }
+            
+            prevBtn.addEventListener('click', () => {
+                goToSlide(currentIndex - 1);
+            });
+            
+            nextBtn.addEventListener('click', () => {
+                goToSlide(currentIndex + 1);
+            });
+            
+            indicators.forEach((indicator, index) => {
+                indicator.addEventListener('click', () => {
+                    goToSlide(index);
+                });
+            });
+            
+            // Инициализация
+            updateSlidesPerView();
+            
+            // Обновление при изменении размера окна
+            window.addEventListener('resize', updateSlidesPerView);
+        });
+    </script>
+
+    <script id="backToTopScript">
+        document.addEventListener('DOMContentLoaded', function() {
+            const backToTopBtn = document.getElementById('backToTopBtn');
+            
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    backToTopBtn.style.opacity = '1';
+                } else {
+                    backToTopBtn.style.opacity = '0';
+                }
+            });
+            
+            backToTopBtn.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
